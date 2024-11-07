@@ -8,7 +8,7 @@ const DictionaryApp = () => {
     const word = document.querySelector('#word-input').value.trim().toLowerCase();
     
     if (!word) {
-      setDefinition("Please enter a word to search.");
+      setDefinition("Word not found in the dictionary");
       setError(true);
     } else if (word === "react") {
       setDefinition("A JavaScript library for building user interfaces.");
