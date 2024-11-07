@@ -1,47 +1,38 @@
-import "./styles.css";
-
 import React, { useState } from "react";
 
-function XDictionary() {
-  // Initialize dictionary state with predefined words and meanings
-  const [dictionary] = useState([
-    {
-      word: "React",
-      meaning: "A JavaScript library for building user interfaces.",
-    },
-    { word: "Component", meaning: "A reusable building block in React." },
-    { word: "State", meaning: "An object that stores data for a component." },
-  ]);
+const DictionaryApp = () => {
+  const [definition, setDefinition] = useState("");
+  const [error, setError] = useState(false);
 
-  // State for user input and search result
-  const [searchTerm, setSearchTerm] = useState("");
-  const [result, setResult] = useState("");
-
-  // Function to handle the search action
-  const handleSearch = () => {
-    const foundWord = dictionary.find(
-      (entry) => entry.word.toLowerCase() === searchTerm.toLowerCase()
-    );
-    if (foundWord) {
-      setResult(foundWord.meaning);
+  const searchWord = () => {
+    const word = document.querySelector('#word-input').value.trim().toLowerCase();
+    
+    if (!word) {
+      setDefinition("Please enter a word to search.");
+      setError(true);
+    } else if (word === "react") {
+      setDefinition("A JavaScript library for building user interfaces.");
+      setError(false);
+    } else if (word === "component") {
+      setDefinition("A reusable building block in React.");
+      setError(false);
     } else {
-      setResult("Word not found in the dictionary.");
+      setDefinition("Word not found in the dictionary.");
+      setError(true);
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>XDictionary</h1>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Enter a word"
-      />
-      <button onClick={handleSearch}>Search</button>
-      <p>{result}</p>
+    <div>
+      <h1>Dictionary App</h1>
+      <input type="text" id="word-input" placeholder="Search for a word" />
+      <button id="search-button" onClick={searchWord}>Search</button>
+      <div id="definition-container">
+        <strong>Definition:</strong>
+        <p id="definition-text">{definition}</p>
+      </div>
     </div>
   );
-}
+};
 
-export default XDictionary;
+export default DictionaryApp;
